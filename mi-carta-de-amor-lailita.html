@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carta Romántica para Ti</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec; /* Rosa claro */
+            color: #4a148c; /* Morado oscuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h1 {
+            color: #d81b60; /* Rosa vibrante */
+            margin-bottom: 20px;
+        }
+        .carousel-container {
+            position: relative;
+            width: 80%; /* Ajusta el ancho del carrusel */
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            display: block; /* Para que la transición funcione bien */
+        }
+        .carousel-item.active {
+            opacity: 1;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .message {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: left;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .heart {
+            position: absolute;
+            background-color: #e91e63;
+            transform: rotate(-45deg);
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            animation: heartBeat 2s infinite ease-in-out;
+            z-index: 5;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e91e63;
+            border-radius: 50%;
+        }
+        .heart::before {
+            left: -50%;
+        }
+        .heart::after {
+            top: -50%;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: rotate(-45deg) scale(0.8); opacity: 0.5; }
+            50% { transform: rotate(-45deg) scale(1.1); opacity: 1; }
+            100% { transform: rotate(-45deg) scale(0.8); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Mi Amor, para ti!</h1>
+        <div class="carousel-container">
+            <div class="carousel-inner" id="carouselInner">
+                <div class="carousel-item active"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (1).jpeg" alt="Nuestra Foto 1"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (2).jpeg" alt="Nuestra Foto 2"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (3).jpeg" alt="Nuestra Foto 3"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (4).jpeg" alt="Nuestra Foto 4"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (5).jpeg" alt="Nuestra Foto 5"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (6).jpeg" alt="Nuestra Foto 6"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (7).jpeg" alt="Nuestra Foto 7"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (8).jpeg" alt="Nuestra Foto 8"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (9).jpeg" alt="Nuestra Foto 9"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (10).jpeg" alt="Nuestra Foto 10"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM (11).jpeg" alt="Nuestra Foto 11"></div>
+                <div class="carousel-item"><img src="WhatsApp Image 2025-09-04 at 12.44.37 PM.jpeg" alt="Nuestra Foto 12"></div>
+            </div>
+        </div>
+        <p class="message" id="loveMessage"></p>
+    </div>
+
+    <script>
+        const messages = [
+            "Aún tengo mucho que aprender sobre el amor, pero quiero aprenderlo contigo, aún tengo muchos defectos por corregir, pero quiero corregirlos por nosotros dos, aún no alcanzo mi mejor versión, pero quiero que seas tú quien la disfrute, aún quedan muchas cosas por vivir, y quiero vivirlas contigo.",
+            "",
+            "TE AMO.",
+            "",
+            "Te amo de la forma más sincera que puedo decirte.",
+            "Te amo de la manera en la que nunca había amado.",
+            "Amo tus risas, tus miradas, tus besos.",
+            "Te amo hasta en esos momentos en los que no quieres estar con nadie.",
+            "Te amo... Hoy, mañana y siempre."
+        ];
+
+        const carouselInner = document.getElementById('carouselInner');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const loveMessage = document.getElementById('loveMessage');
+        const container = document.querySelector('.container');
+        let currentPhotoIndex = 0;
+        let currentMessageIndex = 0;
+        let charIndex = 0;
+        let isTyping = false;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                container.classList.add('show');
+                setTimeout(showNextPhoto, 1500);
+                setTimeout(startTypingMessage, 2000);
+                createHearts();
+            }, 500);
+        });
+
+        function showNextPhoto() {
+            // Elimina la clase 'active' de la imagen actual
+            carouselItems[currentPhotoIndex].classList.remove('active');
+            
+            // Avanza al siguiente índice, con un bucle infinito
+            currentPhotoIndex = (currentPhotoIndex + 1) % carouselItems.length;
+            
+            // Añade la clase 'active' a la siguiente imagen
+            carouselItems[currentPhotoIndex].classList.add('active');
+
+            // Llama a la función de nuevo después de 3 segundos
+            setTimeout(showNextPhoto, 3000); 
+        }
+
+        function startTypingMessage() {
+            if (!isTyping) {
+                isTyping = true;
+                typeMessage();
+            }
+        }
+
+        function typeMessage() {
+            if (currentMessageIndex < messages.length) {
+                const fullMessage = messages[currentMessageIndex];
+                if (charIndex < fullMessage.length) {
+                    loveMessage.textContent += fullMessage.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeMessage, 70);
+                } else {
+                    loveMessage.textContent += '\n\n';
+                    charIndex = 0;
+                    currentMessageIndex++;
+                    setTimeout(typeMessage, 1500);
+                }
+            } else {
+                isTyping = false;
+                loveMessage.classList.add('show');
+            }
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                document.body.appendChild(heart);
+
+                const size = Math.random() * 30 + 10;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                setTimeout(() => {
+                    heart.style.opacity = 1;
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>
